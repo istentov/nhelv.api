@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Cannot Be Accessed</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px; /* Slight padding */
+        }
+        #container {
+            width: 400px; /* Adjust width */
+            margin: 50px auto; /* Center the container */
+            transform: translateX(-20px); /* Move elements slightly to the left */
+        }
+        #error-image {
+            width: 100px; /* Set width for the image */
+            height: auto;
+        }
+        h1 {
+            color: #202124;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        p {
+            color: #5F6368;
+            margin: 5px 0;
+        }
+        #footer {
+            font-size: 12px;
+        }
+        #door {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            width: 100px; /* Adjusted width for a thinner door */
+            height: 0; /* Start height at 0 */
+            border: 2px solid transparent; /* Initial transparent borders */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateX(-50%); /* Center the door */
+            transition: height 0.5s; /* Smooth transition for height */
+        }
+        a {
+            display: block; /* Make the link cover the door area */
+            height: 100%; /* Cover the entire height */
+            width: 100%; /* Cover the entire width */
+            text-decoration: none; /* Remove underline */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <img id="error-image" src="sad_file.png" alt="File Cannot Be Accessed">
+        <h1>Your file cannot be accessed</h1>
+        <p>It may have been moved, edited, or deleted.</p>
+        <p id="footer">ERR_FILE_NOT_FOUND</p>
+    </div>
+
+    <a id="door" href="">
+        <!-- The door is wrapped in an <a> tag with a blank href -->
+    </a>
+
+    <script>
+        // Simulate a delay before drawing the hidden door
+        setTimeout(() => {
+            const door = document.getElementById('door');
+            door.style.borderColor = 'black'; // Set border color after delay
+            drawDoor(door);
+        }, 10000); // Wait for 10 seconds before drawing the door
+
+        function drawDoor(door) {
+            const steps = 20; // Number of steps to draw the door
+            const totalHeight = 200; // Height of the door
+            const delay = 200; // Delay between steps
+
+            // Draw the left border
+            for (let i = 0; i <= steps; i++) {
+                setTimeout(() => {
+                    door.style.height = `${(totalHeight / steps) * i}px`; // Increase height
+                }, delay * i);
+            }
+
+            // Draw the top border
+            setTimeout(() => {
+                door.style.borderTop = '2px solid black'; // Draw top border after height is set
+            }, delay * (steps));
+
+            // Draw the right border
+            for (let i = 0; i <= steps; i++) {
+                setTimeout(() => {
+                    door.style.height = `${totalHeight}px`; // Set full height
+                }, delay * (steps + i));
+            }
+
+            // Draw the bottom border
+            setTimeout(() => {
+                door.style.borderBottom = '2px solid black'; // Draw bottom border
+            }, delay * (steps * 2));
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nhelv.pass</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a; /* Darker background */
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        .quadrant {
+            position: absolute;
+            width: 250px; /* Smaller width */
+            height: 250px; /* Smaller height */
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .quadrant:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        #quadrant1 { top: 20px; left: 20px; }
+        #quadrant2 { top: 20px; right: 20px; }
+        #quadrant3 { bottom: 20px; left: 20px; }
+        #quadrant4 { bottom: 20px; right: 20px; }
+        .equation {
+            font-size: 18px;
+            text-align: center;
+        }
+        #determinant {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0 0 30px rgba(255, 204, 0, 1); /* Enhanced glow */
+            text-align: center;
+        }
+        #input-section {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            color: #ffffff; /* Inverse color of the background */
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            max-height: 80%;
+            overflow: auto;
+            text-align: center;
+        }
+        .overlay img {
+            max-width: 100%;
+            max-height: 70vh; /* Bigger image */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quadrant1" class="quadrant" onclick="showEquation('f1')">
+        <div class="equation">$$ f_1(x, y) = (x^4 + y^4) - 2(x^2 y^2) + 3x^3 + 5y^2 $$</div>
+    </div>
+    
+    <div id="quadrant2" class="quadrant" onclick="showEquation('f2')">
+        <div class="equation">$$ f_2(x, y) = \frac{3x^5 - 4y^3}{(x + 1)^2} + \log(1 + y^2 + x^3) $$</div>
+    </div>
+    
+    <div id="quadrant3" class="quadrant" onclick="showEquation('f3')">
+        <div class="equation">$$ f_3(x, y) = e^{x+y} + \frac{x^2 + 2xy + y^2}{3} - \sin(x) + \cos(y) $$</div>
+    </div>
+    
+    <div id="quadrant4" class="quadrant" onclick="showEquation('f4')">
+        <div class="equation">$$ f_4(x, y) = \sqrt{x^2 + y^2 + 4} + \frac{y^4 - 2x^2}{x + 2} + e^{y - x} $$</div>
+    </div>
+    
+    <div id="determinant">
+        <p>$$ \begin{vmatrix}
+            f_1(x, y) & f_2(x, y) \\
+            f_3(x, y) & f_4(x, y)
+        \end{vmatrix} \approx -13043676.44 $$</p>
+    </div>
+
+    <div id="input-section">
+        <h3>Find \( x \) and \( y \) (Integers only)</h3>
+        <input type="text" id="x-value" placeholder="Enter x value">
+        <input type="text" id="y-value" placeholder="Enter y value">
+        <button onclick="submitValues()">Submit</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="hideEquation()">
+        <div class="overlay-content">
+            <img id="equation-image" src="" alt="Equation Image">
+            <p id="equation-name"></p>
+        </div>
+    </div>
+
+    <script>
+        function submitValues() {
+            const x = document.getElementById("x-value").value;
+            const y = document.getElementById("y-value").value;
+            if (x == 12 && y == -4) {
+                window.location.href = 'correct.html'; // Redirect to the correct HTML file
+            } else {
+                alert(`You entered x = ${x} and y = ${y}. Try again!`);
+            }
+        }
+
+        function showEquation(equation) {
+            const overlay = document.getElementById("overlay");
+            const equationImage = document.getElementById("equation-image");
+            equationImage.src = `https://latex.codecogs.com/svg.latex?${encodeURIComponent(getEquationLatex(equation))}`;
+            overlay.style.display = 'flex';
+            document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Dim background
+        }
+
+        function hideEquation() {
+            const overlay = document.getElementById("overlay");
+            overlay.style.display = 'none';
+            document.body.style.backgroundColor = '#1a1a1a'; // Dark background
+        }
+
+        function getEquationLatex(equation) {
+            switch (equation) {
+                case 'f1':
+                    return 'f_1(x,y) = (x^4 + y^4) - 2(x^2 y^2) + 3x^3 + 5y^2';
+                case 'f2':
+                    return 'f_2(x,y) = \\frac{3x^5 - 4y^3}{(x + 1)^2} + \\log(1 + y^2 + x^3)';
+                case 'f3':
+                    return 'f_3(x,y) = e^{x+y} + \\frac{x^2 + 2xy + y^2}{3} - \\sin(x) + \\cos(y)';
+                case 'f4':
+                    return 'f_4(x,y) = \\sqrt{x^2 + y^2 + 4} + \\frac{y^4 - 2x^2}{x + 2} + e^{y - x}';
+                default:
+                    return '';
+            }
+        }
+    </script>
+</body>
+</html>
