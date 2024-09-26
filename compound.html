@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #2f4f4f;
             color: #fff;
@@ -21,11 +22,13 @@
             font-weight: bold;
             border-bottom: 4px solid #555;
         }
+
         nav {
             background-color: #555;
             padding: 10px;
             text-align: center;
         }
+
         nav a {
             color: #fff;
             margin: 0 15px;
@@ -33,17 +36,20 @@
             font-weight: bold;
             font-size: 18px;
         }
+
         main {
             padding: 20px;
             max-width: 1200px;
             margin: auto;
         }
+
         .file-explorer {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
+
         .file {
             width: 200px;
             height: 150px;
@@ -53,35 +59,64 @@
             cursor: pointer;
             overflow: hidden;
         }
+
         .file img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: blur(10px) grayscale(100%);
             transition: filter 0.3s ease;
+            pointer-events: none;
         }
+
         .file.unlocked img {
             filter: none;
+            pointer-events: auto;
         }
+
         .static-effect {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('static.gif'); /* static effect image */
+            background-image: url('static.gif');
             opacity: 0.5;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
+
         .file.unlocked .static-effect {
             opacity: 0;
-            visibility: hidden; /* Hide static effect when unlocked */
+            visibility: hidden;
         }
+
+        .file.faded {
+            animation: disintegrate 2s forwards;
+        }
+
+        @keyframes disintegrate {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(-10px);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+                filter: blur(20px);
+            }
+        }
+
         .password-prompt {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .image-overlay {
             position: fixed;
             top: 0;
@@ -94,11 +129,12 @@
             align-items: center;
             z-index: 1000;
         }
+
         .image-overlay img {
             max-width: 90%;
             max-height: 90%;
-            cursor: default; /* Prevent cursor change on image */
         }
+
         footer {
             background-color: #2f4f4f;
             color: #fff;
@@ -111,72 +147,86 @@
 </head>
 <body>
 
-    <header>
-        Fragments Documentation: Remains of The Yubilaj Catastrophe
-    </header>
+<header>
+    Fragments Documentation: Remains of The Yubilaj Catastrophe
+</header>
 
-    <nav>
-        <a href="udiefub.html">Home</a>
-        <a href="entries.html">Entries</a>
-        <a href="hju7y6ett.html">About</a>
-        <a href="compound.html">₴₹௹$؋§⁋♪⁛仝↺↹</a>
-    </nav>
+<nav>
+    <a href="udiefub.html">Home</a>
+    <a href="entries.html">Entries</a>
+    <a href="hju7y6ett.html">About</a>
+    <a href="compound.html">₴₹௹$؋§⁋♪⁛仝↺↹</a>
+</nav>
 
-    <main>
-        <div class="password-prompt">
-            <label for="passwordInput">Enter the password to unlock files (all uppercase):</label>
-            <input type="password" id="passwordInput" placeholder="Enter password">
-            <button onclick="unlockFiles()">Unlock</button>
-        </div>
-
-        <div class="file-explorer">
-            <!-- <div class="file" data-password="[password]">
-                <img src="[imagefile]" alt="[alt]" draggable="false">
-                <div class="static-effect"></div>
-            </div> !-->
-        </div>
-    </main>
-
-    <footer>
-        © Cycle_304 bM7q-? | All Rights Reserved
-    </footer>
-
-    <div class="image-overlay" id="imageOverlay">
-        <img id="overlayImage" src="" alt="Full Image" draggable="false">
+<main>
+    <div class="password-prompt">
+        <label for="passwordInput">Enter the password to unlock files:</label>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <button onclick="unlockFiles()">Unlock</button>
     </div>
 
-    <script>
-        function unlockFiles() {
-            const passwordInput = document.getElementById('passwordInput').value;
-            const files = document.querySelectorAll('.file');
-            files.forEach(file => {
-                const correctPassword = file.getAttribute('data-password');
-                if (passwordInput === correctPassword) {
-                    file.classList.add('unlocked');
-                    const img = file.querySelector('img');
-                    img.setAttribute('draggable', 'true'); // Allow dragging after unlocking
+    <div class="file-explorer">
+        <!-- <div class="file" data-password="artifact123">
+            <img src="image1.jpg" alt="Locked Image 1" draggable="false">
+            <div class="static-effect"></div>
+        </div> !-->
+    </div>
+</main>
 
-                    // Add event listener to show full image on click after unlocking
-                    file.addEventListener('click', function() {
-                        const imgSrc = img.getAttribute('src');
-                        showImageOverlay(imgSrc);
-                    });
-                }
-            });
-        }
+<footer>
+    © Cycle_304 bM7q-? | All Rights Reserved
+</footer>
 
-        function showImageOverlay(imgSrc) {
-            const overlay = document.getElementById('imageOverlay');
-            const overlayImage = document.getElementById('overlayImage');
-            overlayImage.setAttribute('src', imgSrc);
-            overlay.style.display = 'flex';
+<div class="image-overlay" id="imageOverlay">
+    <img id="overlayImage" src="" alt="Full Image" draggable="false">
+</div>
 
-            // Close the overlay when clicking anywhere
-            overlay.addEventListener('click', function() {
-                overlay.style.display = 'none';
-            });
-        }
-    </script>
+<script>
+    // Defected password relationships
+    const defectedPasswords = {
+        'LOSTSANITY': 'INSENSITIV',
+        'INSENSITIV': 'LOSTSANITY'
+    };
+
+    function unlockFiles() {
+        const passwordInput = document.getElementById('passwordInput').value;
+        const files = document.querySelectorAll('.file');
+
+        files.forEach(file => {
+            const correctPassword = file.getAttribute('data-password');
+
+            // Unlock the files with the correct password
+            if (passwordInput === correctPassword) {
+                file.classList.add('unlocked');
+                const img = file.querySelector('img');
+                img.setAttribute('draggable', 'true'); // Allow dragging after unlocking
+
+                // Add event listener to show full image on click after unlocking
+                file.addEventListener('click', function () {
+                    const imgSrc = img.getAttribute('src');
+                    showImageOverlay(imgSrc);
+                });
+            }
+            // Fade out and disintegrate sigils/files with defected passwords
+            else if (defectedPasswords[passwordInput] === correctPassword) {
+                file.classList.add('faded');
+                setTimeout(() => file.remove(), 2000); // Remove the file after the animation
+            }
+        });
+    }
+
+    function showImageOverlay(imgSrc) {
+        const overlay = document.getElementById('imageOverlay');
+        const overlayImage = document.getElementById('overlayImage');
+        overlayImage.setAttribute('src', imgSrc);
+        overlay.style.display = 'flex';
+
+        // Close the overlay when clicking anywhere
+        overlay.addEventListener('click', function () {
+            overlay.style.display = 'none';
+        });
+    }
+</script>
 
 </body>
 </html>
